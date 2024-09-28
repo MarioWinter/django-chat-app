@@ -2,6 +2,9 @@
 <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css" />
 <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
 <style>
+	body {
+		box-sizing: border-box;
+	}
 	.chat-forms-container {
 		display: flex;
 		align-items: center;
@@ -11,6 +14,24 @@
 		right: 0;
 		left: 0;
 		padding-bottom: 10px;
+	}
+	.messages-container {
+		display: flex;
+		height: 80%;
+		flex-direction: column;
+		justify-content: flex-end;
+		align-items: center;
+	}
+	.message-box {
+		padding: 10px;
+		border-radius: 10px;
+		margin-top: 25px;
+		background-color: rgba(100, 100, 100, 0.1);
+	}
+
+	.message-date {
+		color: gray;
+		font-size: 10px;
 	}
 </style>
 
@@ -44,7 +65,13 @@
 	</div>
 	<main class="mdl-layout__content">
 		<div class="page-content">
-			<!-- Simple Textfield -->
+			<div class="messages-container">
+				{% for message in messages %}
+				<div class="message-box"><b>{{message.author.first_name}}</b>: {{message.text}} <span class="message-date">{{message.created_at}}</span></div>
+
+				{% endfor %}
+			</div>
+
 			<div class="chat-forms-container">
 				<form action="/chat/" method="post">
 					{% csrf_token %}
