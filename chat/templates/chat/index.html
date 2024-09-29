@@ -33,6 +33,11 @@
 		color: gray;
 		font-size: 10px;
 	}
+	.login-info-txt-container {
+		display: flex;
+		width: 100%;
+		justify-content: center;
+	}
 </style>
 
 <!-- Always shows a header, even in smaller screens. -->
@@ -40,7 +45,11 @@
 	<header class="mdl-layout__header">
 		<div class="mdl-layout__header-row">
 			<!-- Title -->
-			<span class="mdl-layout-title"> Welcome {{request.user.first_name}} {{request.user.last_name}} in Le Chat </span>
+			<span class="mdl-layout-title">
+				{% if request.user.is_authenticated %} Welcome {{request.user.first_name}} {{request.user.last_name}} in Le Chat {% else %} Get
+				inspired by Le Chat {% endif %}
+			</span>
+
 			<!-- Add spacer, to align navigation to the right -->
 			<div class="mdl-layout-spacer"></div>
 			<!-- Navigation. We hide it in small screens. -->
@@ -65,9 +74,12 @@
 	</div>
 	<main class="mdl-layout__content">
 		<div class="page-content">
+			{% if request.user.is_authenticated %}
 			<div class="messages-container">
 				{% for message in messages %}
-				<div class="message-box"><b>{{message.author.first_name}}</b>: {{message.text}} <span class="message-date">{{message.created_at}}</span></div>
+				<div class="message-box">
+					<b>{{message.author.first_name}}</b>: {{message.text}} <span class="message-date">{{message.created_at}}</span>
+				</div>
 
 				{% endfor %}
 			</div>
@@ -83,6 +95,12 @@
 					<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">Send</button>
 				</form>
 			</div>
+			{% else %}
+			<div class="login-info-txt-container">
+				<h4>To use the chat, you need to log in <a href="/login">here</a></h4>
+			</div>
+
+			{% endif %}
 		</div>
 	</main>
 </div>
