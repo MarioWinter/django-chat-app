@@ -9,9 +9,6 @@
 		height: 100%;
 	}
 	.login-container {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
 		background-color: rgba(63, 81, 181, 0.05);
 		border-radius: 10px;
 		border: 1px solid rgb(63, 81, 181);
@@ -21,19 +18,22 @@
 <div class="content">
 	<div class="login-container">
 		<h1>Le Chat</h1>
-		<form action="#">
+		<form method="post" action="/login/">
+			{% csrf_token %}
 			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-				<input class="mdl-textfield__input" type="text" id="sample3" />
+				<input class="mdl-textfield__input" name="username" type="text" id="sample3" />
 				<label class="mdl-textfield__label" for="sample3">Username...</label>
 			</div>
-		</form>
-		<form action="#">
+
 			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-				<input class="mdl-textfield__input" type="text" id="sample3" />
+				<input class="mdl-textfield__input" name="password" type="text" id="sample3" />
 				<label class="mdl-textfield__label" for="sample3">Password...</label>
 			</div>
+			{% if wrongPassword %}
+			<p>Username or password is wrong</p>
+			{% endif%}
+			<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">Sign in</button>
+			<p>Don't have an account? <a href="/signup">Sign up</a></p>
 		</form>
-		<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">Sign in</button>
-		<p>Don't have an account? <a href="/signup">Sign up</a></p>
 	</div>
 </div>
