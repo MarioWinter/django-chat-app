@@ -2,7 +2,9 @@ from django.shortcuts import render
 from .models import Chat, Message
 from django.http import HttpResponseRedirect
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
 
+@login_required(login_url="/login/")
 def index(request):
 	print(request.method)
 	if request.method == 'POST':
@@ -19,7 +21,7 @@ def login_view(request):
 		user = authenticate(request, username=username, password=password)
 		if user is not None:
 			login(request, user)
-			return HttpResponseRedirect('/chat/')
+			return HttpResponseRedirect(request.GET.get('next'))
 		else:
 			return render(request, 'auth/login.html', {'wrongPassword': True})# boolean variable im HTML
 	return render(request, 'auth/login.html')
