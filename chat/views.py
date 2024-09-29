@@ -15,13 +15,15 @@ def index(request):
 	return render(request, 'chat/index.html', {'messages': chatMessages})
 
 def login_view(request):
+	redirect = request.GET.get('next')
+	print(redirect)
 	if request.method == 'POST':
 		username = request.POST["username"]
 		password = request.POST["password"]
 		user = authenticate(request, username=username, password=password)
 		if user is not None:
 			login(request, user)
-			return HttpResponseRedirect(request.GET.get('next'))
+			return HttpResponseRedirect(request.POST.get('redirect'))
 		else:
-			return render(request, 'auth/login.html', {'wrongPassword': True})# boolean variable im HTML
-	return render(request, 'auth/login.html')
+			return render(request, 'auth/login.html', {'wrongPassword': True, 'redirect': redirect})# boolean variable im HTML
+	return render(request, 'auth/login.html', {'redirect':redirect})

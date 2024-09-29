@@ -20,6 +20,7 @@
 		<h1>Le Chat</h1>
 		<form method="post" action="/login/">
 			{% csrf_token %}
+			<input type="hidden" name="redirect" value="{{ redirect }}" />
 			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 				<input class="mdl-textfield__input" name="username" type="text" id="sample3" />
 				<label class="mdl-textfield__label" for="sample3">Username...</label>
