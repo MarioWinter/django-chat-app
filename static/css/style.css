@@ -1,0 +1,47 @@
+body {
+	box-sizing: border-box;
+}
+
+.page-content {
+	height: 100%;
+	display: flex;
+	justify-content: center;
+}
+
+.messages-container {
+	display: flex;
+	height: 80%;
+	min-width: 50%;
+	flex-direction: column;
+	justify-content: flex-end;
+	align-items: flex-start;
+}
+
+.chat-forms-container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	padding-bottom: 10px;
+}
+
+.message-box {
+	padding: 10px;
+	border-radius: 10px;
+	margin-top: 25px;
+	background-color: rgba(100, 100, 100, 0.1);
+}
+
+.message-date {
+	color: gray;
+	font-size: 10px;
+}
+
+.login-info-txt-container {
+	display: flex;
+	width: 100%;
+	justify-content: center;
+}
