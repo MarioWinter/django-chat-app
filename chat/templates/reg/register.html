@@ -27,8 +27,8 @@
 </style>
 <div class="content">
 	<div class="login-container">
-		<h1>Le Chat</h1>
-		<form class="login-form" method="post" action="/login/">
+		<h1>Join Le Chat</h1>
+		<form class="login-form" method="post" action="/register/">
 			{% csrf_token %}
 			<input type="hidden" name="redirect" value="{{ redirect }}" />
 			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
@@ -37,14 +37,15 @@
 			</div>
 
 			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+				<input class="mdl-textfield__input" name="email" type="text" id="sample3" />
+				<label class="mdl-textfield__label" for="sample3">E-Mail...</label>
+			</div>
+
+			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 				<input class="mdl-textfield__input" name="password" type="text" id="sample3" />
 				<label class="mdl-textfield__label" for="sample3">Password...</label>
 			</div>
-			{% if wrongPassword %}
-			<p>Username or password is wrong</p>
-			{% endif%}
-			<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">Sign in</button>
-			<p>Don't have an account? <a href="/register/">Sign up</a></p>
+			<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">Sign up</button>
 		</form>
 	</div>
 </div>
