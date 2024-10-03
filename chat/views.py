@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import redirect
 from .dummy_data import gadgets
+from django.utils.text import slugify
 
 # @login_required(login_url="/login/")
 
@@ -17,6 +18,13 @@ def redirect_to_start_page_view(request):
 
 def single_gadget_view(request, gadget_id):
     return JsonResponse(gadgets[gadget_id])
+
+def single_gadget_slug_view(request, gadget_slug):
+    gadget_match = {"result" : "nothing"}
+    for gedget in gadgets:
+        if slugify(gedget["name"]) == gadget_slug:
+            gadget_match = gedget
+    return JsonResponse(gadget_match)
 
 def index(request):
 	print(request.method)
