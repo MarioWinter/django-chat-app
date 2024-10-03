@@ -7,5 +7,5 @@ urlpatterns = [
     path('login/', login_view),
     path('register/', register_view),
     path('gadget/<int:gadget_id>', single_gadget_view),
-    path('gadget/<slug:gadget_slug>', single_gadget_slug_view)
+    path('gadget/<slug:gadget_slug>', single_gadget_slug_view, name="gadget_slug_url")
 ]
