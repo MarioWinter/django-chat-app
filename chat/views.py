@@ -1,11 +1,16 @@
 from django.shortcuts import render
 from .models import Chat, Message
 from django.http import HttpResponseRedirect
+from django.http import HttpResponse
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
-@login_required(login_url="/login/")
+# @login_required(login_url="/login/")
+
+def start_page_view(request):
+    return HttpResponse('Startseite vom Backend Django')
+
 def index(request):
 	print(request.method)
 	if request.method == 'POST':
