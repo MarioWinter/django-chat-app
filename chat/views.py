@@ -6,6 +6,8 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import redirect
+from .dummy_data import gadgets
+import json
 
 # @login_required(login_url="/login/")
 
@@ -14,6 +16,9 @@ def start_page_view(request):
 
 def redirect_to_start_page_view(request):
     return redirect('chat-app/', permanent=True)
+
+def single_gadget_view(request):
+    return HttpResponse(json.dumps(gadgets[0]), content_type="application/json")
 
 def index(request):
 	print(request.method)
