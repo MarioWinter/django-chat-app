@@ -5,11 +5,15 @@ from django.http import HttpResponse
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.shortcuts import redirect
 
 # @login_required(login_url="/login/")
 
 def start_page_view(request):
     return HttpResponse('Startseite vom Backend Django')
+
+def redirect_to_start_page_view(request):
+    return redirect('chat-app/', permanent=True)
 
 def index(request):
 	print(request.method)
