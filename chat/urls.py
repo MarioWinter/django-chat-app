@@ -6,5 +6,5 @@ urlpatterns = [
     path('chat/', index),
     path('login/', login_view),
     path('register/', register_view),
-    path('gadget/', single_gadget_view)
+    path('gadget/<int:gadget_id>', single_gadget_view)
 ]
