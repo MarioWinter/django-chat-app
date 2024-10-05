@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.views import View
 from django.shortcuts import redirect
-from .dummy_data import gadgets
+from .dummy_data import gadgets, manufacturers
 from django.utils.text import slugify
 from django.urls import reverse
 import json
@@ -25,6 +25,35 @@ def single_gadget_init_view(request, gadget_id):
 		new_url = reverse("gadget_slug_url", args=[new_slug])
 		return redirect(new_url)
 	return HttpResponseNotFound('not found by me')
+
+def single_manufacturer_init_view(request, manufacturer_id):
+	if len(manufacturers) > manufacturer_id:
+		new_manufacturer_slug = slugify(manufacturers[manufacturer_id]["name"])
+		new_url = reverse("manufacturer_slug_url", args=[new_manufacturer_slug])
+		return redirect(new_url)
+	return HttpResponseNotFound('not found by me')
+
+
+
+class ManufacturerView(View):
+    def get(self, request, manufacturer_slug=""):
+        manufacturer_match = None
+        for manufacturer in manufacturers:
+            if slugify(manufacturer["name"]) == manufacturer_slug:
+                manufacturer_match = manufacturer
+            if manufacturer_match:
+                return JsonResponse(manufacturer_match)
+        raise Http404()
+    
+    
+    def post(self, request, *args, **kwargs):
+        try:
+            data = json.loads(request.body)
+            print(f"recieved data: {data["test"]}")
+            return JsonResponse({"response" : "Das war was!"})
+        except:
+            return JsonResponse({"response" : "Das war nix!"})
+
 
 class GadgetView(View):
     def get(self, request, gadget_slug=""):
@@ -45,23 +74,23 @@ class GadgetView(View):
             return JsonResponse({"response" : "Das war nix!"})
 
 
-def single_gadget_view(request, gadget_slug=""):
-    if request.method == "GET":
-        gadget_match = None
-        for gedget in gadgets:
-            if slugify(gedget["name"]) == gadget_slug:
-                gadget_match = gedget
-        if gadget_match:
-            return JsonResponse(gadget_match)
-        raise Http404()
+# def single_gadget_view(request, gadget_slug=""):
+#     if request.method == "GET":
+#         gadget_match = None
+#         for gedget in gadgets:
+#             if slugify(gedget["name"]) == gadget_slug:
+#                 gadget_match = gedget
+#         if gadget_match:
+#             return JsonResponse(gadget_match)
+#         raise Http404()
     
-    if request.method == "POST":
-        try:
-            data = json.loads(request.body)
-            print(f"recieved data: {data["test"]}")
-            return JsonResponse({"response" : "Das war was!"})
-        except:
-            return JsonResponse({"response" : "Das war nix!"})
+#     if request.method == "POST":
+#         try:
+#             data = json.loads(request.body)
+#             print(f"recieved data: {data["test"]}")
+#             return JsonResponse({"response" : "Das war was!"})
+#         except:
+#             return JsonResponse({"response" : "Das war nix!"})
 
 
 

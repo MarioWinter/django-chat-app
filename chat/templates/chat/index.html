@@ -1,4 +1,5 @@
-{% extends "main.html" %} {%block content%} {% if request.user.is_authenticated %}
+{% extends "main.html" %} {% block title %}Chat{% endblock %} {% block content %} {% if request.user.is_authenticated %}
+
 <div class="messages-container">
 	{% for message in messages %}
 	<div class="message-box"><b>{{message.author.first_name}}</b>: {{message.text}} <span class="message-date">{{message.created_at}}</span></div>
